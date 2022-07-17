@@ -13,7 +13,7 @@ const registerUser = asyncWrapper(async (req, res, next) => {
     return next(createCustomError("Already have account", 500));
   }
   const newUser = await User.create(req.body);
-  res.status(201).json({ newUser });
+  res.status(201).json(newUser);
 });
 
 const loginUser = asyncWrapper(async (req, res, next) => {
@@ -25,17 +25,17 @@ const loginUser = asyncWrapper(async (req, res, next) => {
   if (user.password != password) {
     return next(createCustomError("Wrong password", 404));
   }
-  res.status(200).json({ user: user });
+  res.status(200).json(user);
 });
 
 const getUser = asyncWrapper(async (req, res, next) => {
-  const { id: userId } = req.params;
-  const user = await User.findOne({ _id: userId });
+  const { id: id } = req.params;
+  const user = await User.findOne({ _id: id });
   console.log(user);
   if (!user) {
-    return next(createCustomError(`No user with id : ${userId}`, 404));
+    return next(createCustomError(`No user with id : ${id}`, 404));
   }
-  res.status(200).json({ user: user });
+  res.status(200).json(user);
 });
 
 module.exports = { getAllUsers, registerUser, loginUser, getUser };

@@ -6,36 +6,39 @@ const getAllStocks = asyncWrapper(async (req, res) => {
   const stock = await Stock.find({});
   res.status(200).json(stock);
 });
-const registerUser = asyncWrapper(async (req, res, next) => {
-  const { email: email } = req.body;
-  const user = await User.findOne({ email: email });
-  if (user) {
-    return next(createCustomError("Already have account", 500));
+
+const getStock = asyncWrapper(async (req, res, next) => {
+  const { id: id } = req.params;
+  const stock = await Stock.findOne({ _id: id });
+  if (!stock) {
+    return next(createCustomError(`No stock with id : ${id}`, 404));
   }
-  const newUser = await User.create(req.body);
-  res.status(201).json({ newUser });
+  res.status(200).json({ stock });
 });
 
-const loginUser = asyncWrapper(async (req, res, next) => {
-  const { email: email, password: password } = req.body;
-  const user = await User.findOne({ email: email });
-  if (!user) {
-    return next(createCustomError("User does not have an account", 404));
-  }
-  if (user.password != password) {
-    return next(createCustomError("Wrong password", 404));
-  }
-  res.status(200).json({ user: user });
+const createStock = asyncWrapper(async (req, res) => {
+  const stock = await Stock.create(req.body);
+  res.status(201).json({ stock });
 });
 
-const getUser = asyncWrapper(async (req, res, next) => {
-  const { id: userId } = req.params;
-  const user = await User.findOne({ _id: userId });
-  console.log(user);
-  if (!user) {
-    return next(createCustomError(`No user with id : ${userId}`, 404));
+const updateStock = asyncWrapper(async (req, res, next) => {
+  const { id: id } = req.params;
+
+  const stock = await Stock.findOneAndUpdate({ _id: id }, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
+  if (!stock) {
+    return next(createCustomError(`No task with id : ${id}`, 404));
   }
-  res.status(200).json({ user: user });
+
+  res.status(200).json({ task: stock });
 });
 
-module.exports = { getAllUsers, registerUser, loginUser, getUser };
+module.exports = {
+  getAllStocks,
+  createStock,
+  getStock,
+  updateStock,
+};

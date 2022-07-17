@@ -27,6 +27,15 @@ const getNews = asyncWrapper(async (req, res, next) => {
   res.status(200).json({ news });
 });
 
+const getOrgNews = asyncWrapper(async (req, res, next) => {
+  const { id: id } = req.params;
+  const news = await News.find({ orgId: id });
+  if (!news) {
+    return next(createCustomError(`No news found : ${id}`, 404));
+  }
+  res.status(200).json(news);
+});
+
 module.exports = {
   getAllNews,
   createNews,

@@ -16,7 +16,7 @@ const loginOrganization = asyncWrapper(async (req, res, next) => {
   if (org.password != password) {
     return next(createCustomError("Wrong password", 404));
   }
-  res.status(200).json({ organization: org });
+  res.status(200).json(org);
 });
 
 const getOrganization = asyncWrapper(async (req, res, next) => {
@@ -25,7 +25,7 @@ const getOrganization = asyncWrapper(async (req, res, next) => {
   if (!org) {
     return next(createCustomError(`No organization with id : ${id}`, 404));
   }
-  res.status(200).json({ org });
+  res.status(200).json(org);
 });
 
 module.exports = {

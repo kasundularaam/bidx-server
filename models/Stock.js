@@ -3,11 +3,16 @@ const mongoose = require("mongoose");
 const StockSchema = new mongoose.Schema({
   orgId: { type: String, require: [true, "orgId is required!"], trim: true },
   winner: { type: String },
-  startedTime: { type: String, require: [true, "startedTime is required!"] },
-  endedTime: { type: String, require: [true, "endedTime is required!"] },
-  ended: { type: Boolean },
-  basePrice: { type: double, require: [true, "basePrice is required!"] },
-  bidPrice: { type: double },
+  startTimeStamp: {
+    type: Number,
+    require: [true, "startTimeStamp is required!"],
+  },
+  endTimeStamp: {
+    type: Number,
+    require: [true, "endTimeStamp is required!"],
+  },
+  basePrice: { type: Number, require: [true, "basePrice is required!"] },
+  bidPrice: { type: Number },
 });
 
 module.exports = mongoose.model("Stock", StockSchema);
