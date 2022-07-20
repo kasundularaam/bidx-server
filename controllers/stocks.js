@@ -13,12 +13,12 @@ const getStock = asyncWrapper(async (req, res, next) => {
   if (!stock) {
     return next(createCustomError(`No stock with id : ${id}`, 404));
   }
-  res.status(200).json({ stock });
+  res.status(200).json(stock);
 });
 
 const createStock = asyncWrapper(async (req, res) => {
   const stock = await Stock.create(req.body);
-  res.status(201).json({ stock });
+  res.status(201).json(stock);
 });
 
 const updateStock = asyncWrapper(async (req, res, next) => {
@@ -33,7 +33,7 @@ const updateStock = asyncWrapper(async (req, res, next) => {
     return next(createCustomError(`No task with id : ${id}`, 404));
   }
 
-  res.status(200).json({ task: stock });
+  res.status(200).json(stock);
 });
 
 module.exports = {

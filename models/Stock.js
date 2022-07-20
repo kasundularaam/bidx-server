@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 const StockSchema = new mongoose.Schema({
-  orgId: { type: String, require: [true, "orgId is required!"], trim: true },
   winner: { type: String },
   startTimeStamp: {
     type: Number,

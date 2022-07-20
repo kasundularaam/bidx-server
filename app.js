@@ -4,6 +4,7 @@ const users = require("./routes/users");
 const organizations = require("./routes/organizations");
 const news = require("./routes/news");
 const stocks = require("./routes/stocks");
+const newsSub = require("./routes/newsSub");
 const connectDB = require("./db/connect");
 const notFound = require("./middleware/not-found");
 const cors = require("cors");
@@ -21,6 +22,7 @@ app.use("/api/v1/users", users);
 app.use("/api/v1/organizations", organizations);
 app.use("/api/v1/news", news);
 app.use("/api/v1/stocks", stocks);
+app.use("/api/v1/newsSub", newsSub);
 
 app.use(notFound);
 
