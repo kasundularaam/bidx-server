@@ -3,12 +3,11 @@ const router = express.Router();
 
 const {
   getAllStocks,
-  createStock,
   getStock,
   updateStock,
 } = require("../controllers/stocks");
 
-router.route("/").get(getAllStocks).post(createStock);
+router.route("/").get(getAllStocks);
 router.route("/:id").get(getStock).patch(updateStock);
 
 module.exports = router;

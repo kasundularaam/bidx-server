@@ -16,11 +16,6 @@ const getStock = asyncWrapper(async (req, res, next) => {
   res.status(200).json(stock);
 });
 
-const createStock = asyncWrapper(async (req, res) => {
-  const stock = await Stock.create(req.body);
-  res.status(201).json(stock);
-});
-
 const updateStock = asyncWrapper(async (req, res, next) => {
   const { id: id } = req.params;
 
@@ -38,7 +33,6 @@ const updateStock = asyncWrapper(async (req, res, next) => {
 
 module.exports = {
   getAllStocks,
-  createStock,
   getStock,
   updateStock,
 };
